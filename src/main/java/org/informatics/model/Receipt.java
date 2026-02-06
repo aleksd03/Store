@@ -73,7 +73,7 @@ public class Receipt implements Serializable {
         }
 
         sb.append("-".repeat(50)).append("\n");
-        sb.append(String.format("ОБЩО: %.2f EUR\n", totalAmount));
+        sb.append(String.format("SUM: %.2f EUR\n", totalAmount));
         sb.append("=".repeat(50)).append("\n");
 
         return sb.toString();
