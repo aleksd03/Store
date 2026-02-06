@@ -2,6 +2,7 @@ package org.informatics.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 /**
@@ -45,7 +46,7 @@ public abstract class Product implements Serializable {
      * Calculates how many days remain until expiration
      */
     public int getDaysUntilExpiration() {
-        return (int) LocalDate.now().until(expirationDate).getDays();
+        return (int) ChronoUnit.DAYS.between(LocalDate.now(), expirationDate);
     }
 
     /**
