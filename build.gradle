@@ -30,8 +30,26 @@ application {
     mainClass = 'org.informatics.Main'
 }
 
+// Configure UTF-8 encoding for all tasks
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+// Configure UTF-8 for JavaExec tasks (run, runApp)
+tasks.withType(JavaExec) {
+    systemProperty 'file.encoding', 'UTF-8'
+    systemProperty 'console.encoding', 'UTF-8'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
+
+    // UTF-8 encoding for tests
+    systemProperty 'file.encoding', 'UTF-8'
 
     testLogging {
         events "passed", "skipped", "failed"
@@ -62,12 +80,4 @@ jar {
     }
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-compileJava {
-    options.encoding = 'UTF-8'
-}
-
-compileTestJava {
-    options.encoding = 'UTF-8'
 }
