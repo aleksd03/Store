@@ -16,12 +16,10 @@ repositories {
 }
 
 dependencies {
-    // JUnit 5 for testing
     testImplementation platform('org.junit:junit-bom:5.10.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
-    // Mockito for mocking
     testImplementation 'org.mockito:mockito-core:5.8.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
 }
@@ -30,54 +28,16 @@ application {
     mainClass = 'org.informatics.Main'
 }
 
-// Configure UTF-8 encoding for all tasks
-compileJava {
-    options.encoding = 'UTF-8'
-}
-
-compileTestJava {
-    options.encoding = 'UTF-8'
-}
-
-// Configure UTF-8 for JavaExec tasks (run, runApp)
-tasks.withType(JavaExec) {
-    systemProperty 'file.encoding', 'UTF-8'
-    systemProperty 'console.encoding', 'UTF-8'
-}
-
 tasks.named('test') {
     useJUnitPlatform()
-
-    // UTF-8 encoding for tests
-    systemProperty 'file.encoding', 'UTF-8'
-
-    testLogging {
-        events "passed", "skipped", "failed"
-        exceptionFormat "full"
-        showStandardStreams = false
-    }
-}
-
-tasks.register('runApp', JavaExec) {
-    group = 'application'
-    description = 'Runs the Store Management System'
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'org.informatics.Main'
 }
 
 jar {
     manifest {
-        attributes(
-                'Main-Class': 'org.informatics.Main',
-                'Implementation-Title': 'Store Management System',
-                'Implementation-Version': project.version
-        )
+        attributes 'Main-Class': 'org.informatics.Main'
     }
-
-    // Create fat JAR with dependencies
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
-
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
