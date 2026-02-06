@@ -60,12 +60,12 @@ public class Receipt implements Serializable {
     public String format() {
         StringBuilder sb = new StringBuilder();
         sb.append("=".repeat(50)).append("\n");
-        sb.append("КАСОВА БЕЛЕЖКА #").append(receiptNumber).append("\n");
+        sb.append("RECEIPT #").append(receiptNumber).append("\n");
         sb.append("=".repeat(50)).append("\n");
-        sb.append("Касиер: ").append(cashier.getName()).append(" (").append(cashier.getId()).append(")\n");
-        sb.append("Дата и час: ").append(issuedAt.format(DATE_FORMATTER)).append("\n");
+        sb.append("Cashier: ").append(cashier.getName()).append(" (").append(cashier.getId()).append(")\n");
+        sb.append("Date and time: ").append(issuedAt.format(DATE_FORMATTER)).append("\n");
         sb.append("-".repeat(50)).append("\n");
-        sb.append("АРТИКУЛИ:\n");
+        sb.append("ARTICLES:\n");
         sb.append("-".repeat(50)).append("\n");
 
         for (ReceiptItem item : items) {
@@ -73,7 +73,7 @@ public class Receipt implements Serializable {
         }
 
         sb.append("-".repeat(50)).append("\n");
-        sb.append(String.format("ОБЩО: %.2f €\n", totalAmount));
+        sb.append(String.format("ОБЩО: %.2f EUR\n", totalAmount));
         sb.append("=".repeat(50)).append("\n");
 
         return sb.toString();

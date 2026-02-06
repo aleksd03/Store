@@ -129,7 +129,7 @@ public class Store {
         // Check if customer has enough money
         if (customerPayment < totalAmount) {
             throw new InvalidProductException(
-                    String.format("Insufficient payment amount. Required: %.2f €, Received: %.2f €",
+                    String.format("Insufficient payment amount. Required: %.2f EUR, Received: %.2f EUR",
                             totalAmount, customerPayment));
         }
 
@@ -198,13 +198,13 @@ public class Store {
         sb.append("=".repeat(60)).append("\n");
         sb.append("FINANCIAL REPORT - ").append(name).append("\n");
         sb.append("=".repeat(60)).append("\n");
-        sb.append(String.format("Salary expenses: %.2f €\n", calculateSalaryExpenses()));
-        sb.append(String.format("Supply expenses: %.2f €\n", calculateSupplyExpenses()));
-        sb.append(String.format("Total expenses: %.2f €\n", calculateTotalExpenses()));
+        sb.append(String.format("Salary expenses: %.2f EUR\n", calculateSalaryExpenses()));
+        sb.append(String.format("Supply expenses: %.2f EUR\n", calculateSupplyExpenses()));
+        sb.append(String.format("Total expenses: %.2f EUR\n", calculateTotalExpenses()));
         sb.append("-".repeat(60)).append("\n");
-        sb.append(String.format("Revenue from sales: %.2f €\n", calculateTotalRevenue()));
+        sb.append(String.format("Revenue from sales: %.2f EUR\n", calculateTotalRevenue()));
         sb.append("-".repeat(60)).append("\n");
-        sb.append(String.format("PROFIT: %.2f €\n", calculateProfit()));
+        sb.append(String.format("PROFIT: %.2f EUR\n", calculateProfit()));
         sb.append("=".repeat(60)).append("\n");
         sb.append(String.format("Number of issued receipts: %d\n",
                 receiptService.getTotalReceiptsCount()));

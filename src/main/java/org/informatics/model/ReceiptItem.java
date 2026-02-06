@@ -38,7 +38,7 @@ public class ReceiptItem implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%s x %d @ %.2f € = %.2f €",
+        return String.format("%s x %d @ %.2f EUR = %.2f EUR",
                 product.getName(), quantity, unitPrice, totalPrice);
     }
 }
