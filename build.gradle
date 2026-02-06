@@ -1,20 +1,73 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'org.informatics'
-version = '1.0-SNAPSHOT'
+version = '1.0.0'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
+    // JUnit 5 for testing
+    testImplementation platform('org.junit:junit-bom:5.10.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // Mockito for mocking
+    testImplementation 'org.mockito:mockito-core:5.8.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.8.0'
 }
 
-test {
+application {
+    mainClass = 'org.informatics.Main'
+}
+
+tasks.named('test') {
     useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = false
+    }
+}
+
+tasks.register('runApp', JavaExec) {
+    group = 'application'
+    description = 'Runs the Store Management System'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.informatics.Main'
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'org.informatics.Main',
+                'Implementation-Title': 'Store Management System',
+                'Implementation-Version': project.version
+        )
+    }
+
+    // Create fat JAR with dependencies
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
 }
